@@ -6,7 +6,7 @@
 ![image](https://user-images.githubusercontent.com/101043200/235750090-dd2a1190-01ea-4f86-9e86-b3b628bed6e9.png)
 
 <h3>*Calculation of linear velocity vectors modules in function of the time</h3>
-<h5>In this part we wanted to conservate the mechanic energy, and removed the gravity</h5>
+<h5>-In this part we wanted to conservate the mechanic energy, and removed the gravity</h5>
 
 ![image](https://user-images.githubusercontent.com/101043200/235751931-25f147b2-d581-4ae5-a6e3-c5d78804ab29.png)
 
