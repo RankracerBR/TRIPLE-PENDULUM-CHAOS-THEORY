@@ -26,9 +26,9 @@ def mechanical_energy(vx1, vy1, vx2, vy2, vx3, vy3, y1, y2, y3, m1, m2, m3, g):
 
 
 #
-m1 = 1.0 # Massa da partícula 1 (kg)
-m2 = 1.0 # Massa da partícula 2 (kg)
-m3 = 1.0 # Massa da partícula 3 (kg)
+m1 = 1.0 # Massa do pêndulo 1 (kg)
+m2 = 1.0 # Massa do pêndulo 2 (kg)
+m3 = 1.0 # Massa do pêndulo 3 (kg)
 l1 = 1.0 # Comprimento da haste 1 (m)
 l2 = 1.0 # Comprimento da haste 2 (m)
 l3 = 1.0 # Comprimento da haste 3 (m)
