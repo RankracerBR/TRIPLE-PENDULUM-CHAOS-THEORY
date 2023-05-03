@@ -1,7 +1,7 @@
 #Imports
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.integrate  import solve_ivp
+import numpy as np # Biblioteca para cáculos numéricos
+import matplotlib.pyplot as plt # Biblioteca para criação de gráficos
+from scipy.integrate  import solve_ivp # Função para integração de equações diferenciais
 
 #Funções
 def deriv(t, y):
@@ -15,42 +15,43 @@ def deriv(t, y):
     
     return dθ1dt, dθ1pdt, dθ2dt, dθ2pdt, dθ3dt, dθ3pdt
 
-def kinetic_energy(vx1, vy1, vx2, vy2, vx3, vy3, m1, m2, m3):
+def kinetic_energy(vx1, vy1, vx2, vy2, vx3, vy3, m1, m2, m3): # Energia Cinética
     return 0.5 * m1 * (vx1**2 + vy1**2) + 0.5 * m2 * (vx2**2 + vy2**2) + 0.5 * m3 * (vx3**2 + vy3**2)
 
-def gravitational_potential_energy(y1, y2, y3, m1, m2, m3, g):
+def gravitational_potential_energy(y1, y2, y3, m1, m2, m3, g): # Energia potêncial gravitacional
     return m1 * g * y1 + m2 * g * y2 + m3 * g * y3
 
-def mechanical_energy(vx1, vy1, vx2, vy2, vx3, vy3, y1, y2, y3, m1, m2, m3, g):
+def mechanical_energy(vx1, vy1, vx2, vy2, vx3, vy3, y1, y2, y3, m1, m2, m3, g): # Energia mecânica
     return kinetic_energy(vx1, vy1, vx2, vy2, vx3, vy3, m1, m2, m3) + gravitational_potential_energy(y1, y2, y3, m1, m2, m3, g) + 0
 
 
-#
+# Definindo as propriedades
 m1 = 1.0 # Massa do pêndulo 1 (kg)
 m2 = 1.0 # Massa do pêndulo 2 (kg)
 m3 = 1.0 # Massa do pêndulo 3 (kg)
 l1 = 1.0 # Comprimento da haste 1 (m)
 l2 = 1.0 # Comprimento da haste 2 (m)
 l3 = 1.0 # Comprimento da haste 3 (m)
-g = 10# Aceleração da gravidade (m/s^2)
+g = 10 # Aceleração da gravidade (m/s^2)
 
+# Definindo as condições iniciais do sistema
+θ1_0 = 30 * np.pi/180 # Ângulo inicial do pêndulo superior em radianos
+θ1p_0 = 0.0           # Velocidade angular inicial do pêndulo superior em rad/s
+θ2_0 = 30 * np.pi/180 # Ângulo inicial do meio superior em radianos
+θ2p_0 = 0.0           # Velocidade angular inicial do pêndulo do meio em rad/s
+θ3_0 = 30 * np.pi/180 # Ângulo inicial do pêndulo inferior em radianos
+θ3p_0 = 0.0           # Velocidade angular inicial do pêndulo do inferior em rad/s
 
-θ1_0 = 30 * np.pi/180
-θ1p_0 = 0.0
-θ2_0 = 30 * np.pi/180
-θ2p_0 = 0.0
-θ3_0 = 30 * np.pi/180
-θ3p_0 = 0.0
+y0 = [θ1_0, θ1p_0, θ2_0, θ2p_0, θ3_0, θ3p_0] # Junta os parâmetros iniciais
 
-y0 = [θ1_0, θ1p_0, θ2_0, θ2p_0, θ3_0, θ3p_0]
+t_span = (0.0, 10.0) # Define o tempo de intervalo
+t = np.linspace(0, 40, 1000) # Cria um array de mil pontos entre 0 até 40 segundos
+sol = solve_ivp(deriv, t_span, y0, t_eval=np.linspace(t_span[0], t_span[1], 500)) # Faz o cálculo diferencial a partir da função 'deriv'
 
-t_span = (0.0, 10.0)
-t = np.linspace(0, 40, 1000)
-sol = solve_ivp(deriv, t_span, y0, t_eval=np.linspace(t_span[0], t_span[1], 500))
-
-kinetic_energies = []
-potential_energies = []
-mechanical_energies = []
+# Criação de listas para armazenar os valores de cada energia 
+kinetic_energies = [] 
+potential_energies = [] 
+mechanical_energies = [] 
 
 for i in range(len(sol.t)):
     y = sol.y[:, i]
@@ -72,7 +73,8 @@ for i in range(len(sol.t)):
     kinetic_energies.append(kinetic)
     potential_energies.append(potential)
     mechanical_energies.append([mechanical])
-#
+
+#Gráfico 1
 plt.figure(figsize=(20, 12))
 plt.plot(sol.t, sol.y[0], label='θ1')
 plt.plot(sol.t, sol.y[2], label='θ2')
@@ -83,7 +85,7 @@ plt.legend()
 plt.grid()
 plt.show()
 
-#
+#Gráfico 2
 fig, ax = plt.subplots()
 
 ax.plot(sol.y[0], sol.y[1], label='Pêndulo 1')
@@ -97,7 +99,7 @@ ax.legend()
 plt.grid()
 plt.show()
 
-# Plotar o gráfico
+#Gráfico 3
 plt.figure(figsize=(12, 8))
 plt.plot(sol.t, kinetic_energies, label='Energia cinética')
 plt.plot(sol.t, potential_energies, label='Energia potencial')
