@@ -20,7 +20,7 @@ m1 = 1 # Massa do pêndulo 1 (kg)
 m2 = 1 # Massa do pêndulo 2 (kg)
 m3 = 1 # Massa do pêndulo 3 (kg)
 l1 = 1 # Comprimento da haste 1 (m)
-l2 = 10 # Comprimento da haste 2 (m)
+l2 = 1 # Comprimento da haste 2 (m)
 l3 = 1 # Comprimento da haste 3 (m)
 g = 10 # Aceleração da gravidade (m/s^2)
 
